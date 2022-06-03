@@ -8,7 +8,7 @@ class Plate(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     plate_number = db.Column(db.String(50), unique=True)
-    created_on = db.Column(db.DateTime(), default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime(), default=datetime.utcnow)
 
     def __init__(self, plate_number):
         self.plate_number = plate_number

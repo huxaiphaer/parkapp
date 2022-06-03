@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from app.extensions import db
-from app.views.plate_view import PlatesView
+from app.views.plate_view import PlatesView, PlateSearchView
 
 load_dotenv()
 
@@ -33,3 +33,4 @@ application = create_app()
 
 api = Api(application)
 api.add_resource(PlatesView, '/api/v1/plate')
+api.add_resource(PlateSearchView, '/api/v1/search-plate')

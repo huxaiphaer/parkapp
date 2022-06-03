@@ -1,11 +1,12 @@
 import re
 
 import sqlalchemy
-from flask import make_response, jsonify
+from flask import make_response, jsonify, request
 from flask_restful import Resource, reqparse
 
 from app.extensions import db
 from app.model.plate import Plate
+from app.model.schema import PlateSchema
 
 
 class PlatesView(Resource):
@@ -66,3 +67,20 @@ class PlatesView(Resource):
             return make_response(jsonify(message), 400)
 
         return make_response(jsonify(message), 201)
+
+    def get(self):
+        plates = Plate.query.all()
+        plate_schema = PlateSchema(many=True)
+        dump_data = plate_schema.dump(plates)
+        return jsonify(dump_data)
+
+
+class PlateSearchView(Resource):
+    """Plate searching view."""
+
+    def get(self):
+        args = dict(request.args)
+        plates = Plate.query.filter_by(plate_number=args.get('key')).all()
+        plate_schema = PlateSchema(many=True)
+        dump_data = plate_schema.dump(plates)
+        return make_response(jsonify({args.get('key'): dump_data}), 200)

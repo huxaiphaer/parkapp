@@ -11,6 +11,7 @@ class PlateSchema(ma.SQLAlchemySchema):
         model = Plate
         sqla_session = db.session
 
-    id = fields.Number(dump_only=True)
     plate_number = fields.String(required=True)
+    time_stamp = fields.DateTime()
+
 
