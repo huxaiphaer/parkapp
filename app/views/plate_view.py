@@ -41,12 +41,10 @@ class PlatesView(Resource):
             }
             return make_response(jsonify(message), 422)
 
-        # print("==== ", self.extract_digits(plate.split("-")[1]))
-
-        # if self.extract_digits(plate.split("-")[1])["0"] == "0":
-        #     message = {
-        #         'message': 'Sorry invalid number plate, digits after hyphen cannot start with zero.'
-        #     }
-        #     return make_response(jsonify(message), 422)
+        if self.extract_digits(plate.split("-")[1])[0] == "0":
+            message = {
+                'message': 'Sorry invalid number plate, digits after hyphen cannot start with zero.'
+            }
+            return make_response(jsonify(message), 422)
 
         return make_response(jsonify(args['plate']), 201)
