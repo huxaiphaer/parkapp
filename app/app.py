@@ -6,6 +6,7 @@ from flask_migrate import Migrate
 from flask_restful import Api
 
 from app.extensions import db
+from app.views.plate_view import PlatesView
 
 
 def register_extensions(app):
@@ -28,4 +29,4 @@ def create_app():
 application = create_app()
 
 api = Api(application)
-# api.add_resource(Plates, '/api/v1/plate')
+api.add_resource(PlatesView, '/api/v1/plate')
