@@ -1,7 +1,11 @@
 import re
 
+import sqlalchemy
 from flask import make_response, jsonify
 from flask_restful import Resource, reqparse
+
+from app.extensions import db
+from app.model.plate import Plate
 
 
 class PlatesView(Resource):
@@ -47,4 +51,18 @@ class PlatesView(Resource):
             }
             return make_response(jsonify(message), 422)
 
-        return make_response(jsonify(args['plate']), 201)
+        try:
+            add_plate = Plate(plate_number=plate)
+            db.session.add(add_plate)
+            db.session.commit()
+
+            message = {
+                'message': 'The plate number has been successfully added.'
+            }
+        except sqlalchemy.exc.IntegrityError:
+            message = {
+                'message': 'Sorry this number plate already exists.'
+            }
+            return make_response(jsonify(message), 400)
+
+        return make_response(jsonify(message), 201)

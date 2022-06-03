@@ -1,5 +1,6 @@
 import os
 
+from dotenv import load_dotenv
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
@@ -7,6 +8,8 @@ from flask_restful import Api
 
 from app.extensions import db
 from app.views.plate_view import PlatesView
+
+load_dotenv()
 
 
 def register_extensions(app):
