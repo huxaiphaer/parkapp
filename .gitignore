@@ -1,0 +1,10 @@
+env
+en/
+migrations/
+.idea/
+postgres-data/
+postgres-data
+__pycache__/
+*.pyc
+.DS_Store
+postgres-data/
