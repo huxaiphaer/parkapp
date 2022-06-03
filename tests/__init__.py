@@ -33,3 +33,12 @@ class BaseTestCase(TestCase):
             '/api/v1/plate',
             data=json.dumps(dict(plate=plate,)),
             content_type='application/json',)
+
+    def get_all_number_plates(self):
+        """
+        Get all number plates
+        :return:
+        """
+        return self.client.get(
+            '/api/v1/plate',
+            content_type='application/json', )
